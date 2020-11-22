@@ -1,2 +1,13 @@
-<h1>Users#login_form</h1>
-<p>Find me in app/views/users/login_form.html.erb</p>
+<div>
+  <div>ログイン</div>
+  <div>
+    <%= form_tag("/login") do %>
+        <p>ユーザID</p>
+        <input name="user_id" value="<%= @user_id %>">
+        <p>パスワード</p>
+        <!-- 以下のinputタグにtype属性を指定してください -->
+        <input type="password" name="password" value="<%= @password %>">
+        <input type="submit" value="ログイン">
+    <% end %>
+  </div>
+</div>
