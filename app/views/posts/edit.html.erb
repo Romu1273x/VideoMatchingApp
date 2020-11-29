@@ -1,2 +1,19 @@
-<h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+<div>
+  <div>編集する</div>
+  <div>
+    <%= form_tag("/posts/#{@post.id}/update") do %>
+        <p>タイトル</p>
+        <input name="title" value="<%= @post.title %>">
+        <p>契約形態</p>
+        <input name="select" value="<%= @post.select %>">
+        <p>期間・期限</p>
+        <input name="period" value="<%= @post.period %>">
+        <p>料金</p>
+        <input name="price" value="<%= @post.price %>">
+        <p>詳細</p>
+        <textarea name="content"><%= @post.content %></textarea>  
+        <br>
+        <input type="submit" value="保存">
+    <% end %>
+  </div>
+</div>

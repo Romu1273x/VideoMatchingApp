@@ -13,7 +13,8 @@ class UsersController < ApplicationController
       content: ""
     )
     if @user.save
-      # ユーザ登録できた場合、ユーザー詳細ページを表示する
+      # ユーザ登録できた場合、カレントユーザーIDを保持し、ユーザー詳細ページを表示する
+      session[:id] = @user.id
       redirect_to("/users/#{@user.id}")
     else
       # ユーザ登録できなかった場合、入力情報を再表示する
@@ -28,7 +29,8 @@ class UsersController < ApplicationController
     # ログインページで入力されたデータを元にユーザーを特定
     @user = User.find_by(user_id: params[:user_id])
     if @user && (@user.password == (params[:password]))
-      # ログインした場合、投稿ページを表示する
+      # ログインした場合、カレントユーザーIDを保持し、投稿ページを表示する
+      session[:id] = @user.id
       redirect_to("/posts/index")
     else
       # ログインできなかった場合、入力情報を再表示する
@@ -36,6 +38,12 @@ class UsersController < ApplicationController
       @password = params[:password]
       render("users/login_form")
     end
+  end
+
+  def logout
+    # カレントユーザーIDを空にし、ログインページを表示する
+    session[:id] = nil
+    redirect_to("/login")
   end
 
   def edit

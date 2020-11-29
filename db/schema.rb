@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_143811) do
   create_table "posts", force: :cascade do |t|
     t.string "user_id"
     t.string "title"
-    t.string "type"
-    t.integer "price"
+    t.string "select"
+    t.string "price"
     t.string "period"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false

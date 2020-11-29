@@ -1,2 +1,15 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<div>
+  <div>詳細ページ</div>
+  <div>
+    <p><%= @post.user_id %></p>
+    <p><%= @post.title %></p>
+    <p><%= @post.select %></p>
+    <p><%= @post.period %></p>
+    <p><%= @post.price %></p>
+    <p><%= @post.content %></p>
+  </div>
+  <div>
+    <%= link_to("編集", "/posts/#{@post.id}/edit") %>
+    <%= link_to("削除", "/posts/#{@post.id}/destroy", {method: "post"}) %>
+  </div>
+</div>
