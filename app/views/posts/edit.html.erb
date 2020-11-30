@@ -1,6 +1,9 @@
 <div>
   <div>編集する</div>
   <div>
+    <% if @error_message %>
+      <%= @error_message %>
+    <% end %>
     <%= form_tag("/posts/#{@post.id}/update") do %>
         <p>タイトル</p>
         <input name="title" value="<%= @post.title %>">

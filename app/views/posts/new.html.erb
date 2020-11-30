@@ -1,6 +1,9 @@
 <div>
   <div>新規投稿ページ</div>
   <div>
+    <% if @error_message %>
+      <%= @error_message %>
+    <% end %>
     <%= form_tag("/posts/create") do %>
         <p>タイトル</p>
         <input name="title" value="<%= @post.title %>">

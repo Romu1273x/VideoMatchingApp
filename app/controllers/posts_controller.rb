@@ -1,4 +1,9 @@
 class PostsController < ApplicationController
+  # 非ログインユーザーに制限をかける
+  before_action :authenticate_user, {except: [:index]}
+  # 投稿ページに制限をかける
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
+
   def new
     # 新規投稿ページの初期値
     @post = Post.new
@@ -16,9 +21,11 @@ class PostsController < ApplicationController
     )
     if @post.save
       # 投稿できた場合、投稿一覧ページを表示する
+      flash[:notice] = "投稿しました"
       redirect_to("/posts/index")
     else
       # 投稿できなかった場合、入力情報を再表示する
+      @error_message = "入力情報が間違っています"
       render("posts/new")
     end
   end
@@ -37,9 +44,11 @@ class PostsController < ApplicationController
     @post.content = params[:content]
     if @post.save
       # 更新できた場合、投稿一覧ページを表示する
+      flash[:notice] = "投稿を編集しました"
       redirect_to("/posts/index")
     else
       # 更新できなかった場合、入力情報を再表示する
+      @error_message = "入力情報が間違っています"
       render("posts/edit")
     end
   end
@@ -49,6 +58,7 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     if @post.destroy
       # 削除できた場合、投稿一覧ページを表示する
+      flash[:notice] = "投稿を削除しました"
       redirect_to("/posts/index")
     end
   end
@@ -62,4 +72,14 @@ class PostsController < ApplicationController
     # 投稿ページ情報を取得
     @post = Post.find_by(id:params[:id])
   end
+
+  def ensure_correct_user
+    # 作成者以外が変更できないように制限をかける
+    @post = Post.find_by(id: params[:id])
+    if @post.user_id != @current_user.user_id
+      flash[:notice] = "権限がありません"
+      redirect_to("/posts/index")
+    end
+  end
+
 end

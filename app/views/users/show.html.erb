@@ -5,6 +5,8 @@
     <p>ユーザーID:<%= @user.user_id %></p>
     <p>自己紹介文</p>
     <p><%= @user.content %></p>
-    <%= link_to("編集", "/users/#{@user.id}/edit") %>
+    <% if @user.id == @current_user.id %>
+      <%= link_to("編集", "/users/#{@user.id}/edit") %>
+    <% end %>
   </div>
 </div>

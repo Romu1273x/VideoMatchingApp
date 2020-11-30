@@ -1,6 +1,9 @@
 <div>
   <div>マイページ編集</div>
   <div>
+     <% if @error_message %>
+      <%= @error_message %>
+    <% end %>
     <%= form_tag("/users/#{@user.id}/update") do %>
         <p>ハンドルネーム</p>
         <input name="hdl_name" value="<%= @user.hdl_name %>">

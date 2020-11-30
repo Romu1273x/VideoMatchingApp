@@ -1,4 +1,11 @@
 class UsersController < ApplicationController
+  # 非ログインユーザーに制限をかける
+  before_action :authenticate_user, {only: [:index, :show, :edit, :update]}
+  # ログイン済ユーザーに制限をかける
+  before_action :forbid_login_user, {only: [:new, :create, :login_form, :login]}
+  # ユーザー専用ページにアクセス制限
+  before_action :ensure_correct_user, {only: [:edit, :update]}
+
   def new
     # 新規ユーザー登録ページの初期値
     @user = User.new
@@ -15,9 +22,11 @@ class UsersController < ApplicationController
     if @user.save
       # ユーザ登録できた場合、カレントユーザーIDを保持し、ユーザー詳細ページを表示する
       session[:id] = @user.id
+      flash[:notice] = "ユーザー登録が完了しました"
       redirect_to("/users/#{@user.id}")
     else
       # ユーザ登録できなかった場合、入力情報を再表示する
+      @error_message = "入力情報が間違っています"
       render("users/new")
     end
   end
@@ -31,9 +40,11 @@ class UsersController < ApplicationController
     if @user && (@user.password == (params[:password]))
       # ログインした場合、カレントユーザーIDを保持し、投稿ページを表示する
       session[:id] = @user.id
+      flash[:notice] = "ログインしました"
       redirect_to("/posts/index")
     else
       # ログインできなかった場合、入力情報を再表示する
+      @error_message = "ユーザーIDまたはパスワードが間違っています"
       @user_id = params[:user_id]
       @password = params[:password]
       render("users/login_form")
@@ -43,6 +54,7 @@ class UsersController < ApplicationController
   def logout
     # カレントユーザーIDを空にし、ログインページを表示する
     session[:id] = nil
+    flash[:notice] = "ログアウトしました"
     redirect_to("/login")
   end
 
@@ -57,9 +69,11 @@ class UsersController < ApplicationController
     @user.content = params[:content]
     if @user.save
       # ユーザー情報更新できた場合、マイページを表示する
+      flash[:notice] = "ユーザー情報を編集しました"
       redirect_to("/users/#{@user.id}")
     else
       # ユーザー情報更新できた場合、入力情報を再表示する
+      @error_message = "入力情報が間違っています"
       render("users/edit")
     end
   end
@@ -72,4 +86,13 @@ class UsersController < ApplicationController
     # 全てのユーザー情報を取得
     @users = User.all
   end
+
+  def ensure_correct_user
+    # 対象のユーザーだけが専用ページにアクセスできるように制限
+    if @current_user.id != params[:id].to_i
+      flash[:notice] = "権限がありません"
+      redirect_to("/")
+    end
+  end
+
 end

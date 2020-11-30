@@ -1,6 +1,9 @@
 <div>
   <div>ログイン</div>
   <div>
+    <% if @error_message %>
+      <%= @error_message %>
+    <% end %>
     <%= form_tag("/login") do %>
         <p>ユーザID</p>
         <input name="user_id" value="<%= @user_id %>">

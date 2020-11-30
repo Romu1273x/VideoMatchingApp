@@ -1,6 +1,9 @@
 <div>
   <div>新規ユーザー登録</div>
   <div>
+    <% if @error_message %>
+      <%= @error_message %>
+    <% end %>
     <%= form_tag("/users/create") do %>
         <p>ユーザーID</p>
         <input name="user_id" value="<%= @user.user_id %>">
