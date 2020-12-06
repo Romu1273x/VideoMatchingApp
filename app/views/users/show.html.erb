@@ -1,5 +1,5 @@
 <div>
-  <div>マイページ</div>
+  <div>ユーザーページ</div>
   <div>
     <h2><%= @user.hdl_name %></h2>
     <p>ユーザーID:<%= @user.user_id %></p>
@@ -7,6 +7,12 @@
     <p><%= @user.content %></p>
     <% if @user.id == @current_user.id %>
       <%= link_to("編集", "/users/#{@user.id}/edit") %>
+    <% end %>
+    <p>投稿一覧</p>
+    <% @user.posts.each do |post| %>
+      <div>
+        <%= link_to(post.content, "/posts/#{post.id}") %>
+      </div>
     <% end %>
   </div>
 </div>
