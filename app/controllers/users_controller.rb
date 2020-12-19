@@ -80,6 +80,27 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id:params[:id])
+    # DM機能。カレントユーザーとユーザーのEntryテーブルを取得
+    @current_user_entry = Entry.where(user_id: @current_user.id)
+    @user_entry = Entry.where(user_id: @user.id)
+    if @user.id != @current_user.id
+      # カレントユーザーとユーザーが同一でなければ、room_idを比較
+      @current_user_entry.each do |cue|
+        @user_entry.each do |ue|
+          if cue.room_id == ue.room_id
+            # 同一のルームだった場合、roomのidとルームが存在した事を示すフラグを保持
+            @room_id = cue.room_id
+            @room_flag = true
+          end
+        end
+      end
+      if @room_flag != true
+        # もしルームが存在しなかった場合、EntryテーブルとRoomテーブルを作成
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
+
   end
 
   def index

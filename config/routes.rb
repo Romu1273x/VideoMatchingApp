@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'messages/edit'
  # Home
  get '/' => "home#top"
 
@@ -22,5 +23,11 @@ Rails.application.routes.draw do
  post "posts/:id/destroy" => "posts#destroy"
  get 'posts/index'
  get "posts/:id" => "posts#show"
+
+ # Room
+ resources :rooms, only: [:index, :create, :show]
+
+ # Message
+ resources :messages, only: [:create, :edit, :update, :destroy]
   
 end

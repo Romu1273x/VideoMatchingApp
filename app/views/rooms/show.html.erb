@@ -1,0 +1,25 @@
+<div>
+  <div>DM詳細ページ(<%= @opponent_user_name %>)</div>
+  <div>
+    <% if @messages %>
+        <% @messages.each do |m| %>
+            <%= m.user.hdl_name %><br>
+            <%= m.content %><br>
+            <% if m.user_id == @current_user.id %>
+                <%= form_with(model: @message, url: message_path(m.id), remote: true, method: :delete) do |md| %>
+                    <%= md.hidden_field :room_id, value: @room.id %>
+                    <%= md.submit "削除" %>
+                <% end %>
+            <% end %>
+            <br>
+        <% end %>
+    <% end %>
+  </div>
+  <div>
+    <%= form_with(model:@message, local: true) do |m| %>
+        <%= m.text_field :content, placeholder: "メッセージを入力して下さい" %>
+        <%= m.hidden_field :room_id, value: @room.id %>
+        <%= m.submit "送信" %>
+    <% end %>
+  </div>
+</div>

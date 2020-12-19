@@ -6,7 +6,19 @@
     <p>自己紹介文</p>
     <p><%= @user.content %></p>
     <% if @user.id == @current_user.id %>
+      <%= link_to("DM一覧", rooms_path) %><br>
       <%= link_to("編集", "/users/#{@user.id}/edit") %>
+    <% else %>
+      <% if @room_flag == true %>
+        <%= link_to("DMを送る", room_path(@room_id)) %>
+      <% else %>
+        <%= form_with(model: @room, local: true) do |r| %>
+          <%= fields_for @entry do |e| %>
+            <%= e.hidden_field :user_id, value: @user.id %>
+          <% end %>
+          <%= r.submit "DMを送る" %>
+        <% end %>
+      <% end %>
     <% end %>
     <p>投稿一覧</p>
     <% @user.posts.each do |post| %>

@@ -1,0 +1,11 @@
+<div>
+  <div>DM一覧ページ</div>
+  <div>
+    <% if @room_entres %>
+        <% @room_entres.each do |re| %>
+            <%= link_to(re.user.hdl_name, room_path(re.room)) %>
+            <br>
+        <% end %>
+    <% end %>
+  </div>
+</div>
