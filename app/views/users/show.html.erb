@@ -7,6 +7,7 @@
     <p><%= @user.content %></p>
     <% if @user.id == @current_user.id %>
       <%= link_to("DM一覧", rooms_path) %><br>
+      <%= link_to("お気に入り一覧", "/users/#{@user.id}/likes") %><br>
       <%= link_to("編集", "/users/#{@user.id}/edit") %>
     <% else %>
       <% if @room_flag == true %>

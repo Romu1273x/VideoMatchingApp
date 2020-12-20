@@ -70,7 +70,9 @@ class PostsController < ApplicationController
 
   def show
     # 投稿ページ情報を取得
-    @post = Post.find_by(id:params[:id])
+    @post = Post.find_by(id: params[:id])
+    # お気に入り
+    @like = Like.find_by(user_id: @current_user.id, post_id: @post.id)
   end
 
   def ensure_correct_user

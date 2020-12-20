@@ -108,6 +108,12 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def likes
+    # ユーザーがお気に入りした投稿を検索
+    @user = User.find_by(id: params[:id])
+    @likes = Like.where(user_id: @user.id)
+  end
+
   def ensure_correct_user
     # 対象のユーザーだけが専用ページにアクセスできるように制限
     if @current_user.id != params[:id].to_i

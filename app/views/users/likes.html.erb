@@ -1,0 +1,13 @@
+<div>
+  <div>お気に入り一覧ページ</div>
+  <div>
+    <h2><%= @user.hdl_name %></h2>
+    お気に入り一覧<br>
+    <% @likes.each do |like| %>
+        <div>
+            <%= link_to(like.user.hdl_name, "/users/#{like.user_id}") %><br>
+            <%= link_to(like.post.content, "/posts/#{like.post_id}") %><br>
+        </div>
+    <% end %>
+  </div>
+</div>

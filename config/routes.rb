@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  get 'messages/edit'
  # Home
  get '/' => "home#top"
 
@@ -14,6 +13,7 @@ Rails.application.routes.draw do
  get "users/:id/edit" => "users#edit"
  post "users/:id/update" => "users#update"
  get "users/:id" => "users#show"
+ get "users/:id/likes" => "users#likes"
 
  # Post
  get 'posts/new'
@@ -28,6 +28,9 @@ Rails.application.routes.draw do
  resources :rooms, only: [:index, :create, :show]
 
  # Message
- resources :messages, only: [:create, :edit, :update, :destroy]
+ resources :messages, only: [:create, :destroy]
   
+ # Like
+ resources :likes, only: [:create, :destroy]
+
 end

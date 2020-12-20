@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+    has_many :likes, dependent: :destroy
+
     validates :user_id, {presence: true}
     validates :title, {presence: true}
     validates :select, {presence: true}

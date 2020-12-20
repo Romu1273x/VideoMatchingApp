@@ -13,6 +13,13 @@
     <% if @post.user_id == @current_user.user_id %>
       <%= link_to("編集", "/posts/#{@post.id}/edit") %>
       <%= link_to("削除", "/posts/#{@post.id}/destroy", {method: "post"}) %>
+    <% end %>          
+  </div>
+  <div>
+    <% if @like %>
+      <%= link_to("お気に入り解除", like_path(@like, post_id: @post.id), {method: :delete}) %>
+    <% else %>
+      <%= link_to("お気に入り追加", likes_path(post_id: @post.id), {method: :post}) %>
     <% end %>
   </div>
 </div>
