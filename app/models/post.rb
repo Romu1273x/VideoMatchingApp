@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+    belongs_to :user
     has_many :likes, dependent: :destroy
 
     validates :user_id, {presence: true}
@@ -8,8 +9,4 @@ class Post < ApplicationRecord
     validates :period, {presence: true}
     validates :content, {presence: true, length: {maximum: 140}}
 
-    def user
-        # 投稿したユーザー情報を取得
-        return User.find_by(user_id: self.user_id)
-    end
 end

@@ -41,7 +41,7 @@ class UsersController < ApplicationController
       # ログインした場合、カレントユーザーIDを保持し、投稿ページを表示する
       session[:id] = @user.id
       flash[:notice] = "ログインしました"
-      redirect_to("/posts/index")
+      redirect_to(posts_path)
     else
       # ログインできなかった場合、入力情報を再表示する
       @error_message = "ユーザーIDまたはパスワードが間違っています"

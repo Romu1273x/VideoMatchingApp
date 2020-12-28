@@ -4,19 +4,19 @@
     <% if @error_message %>
       <%= @error_message %>
     <% end %>
-    <%= form_tag("/posts/#{@post.id}/update") do %>
+    <%= form_with(model: @post, url: post_path(@post.id), local: true, method: :patch) do |post| %>
         <p>タイトル</p>
-        <input name="title" value="<%= @post.title %>">
+        <%= post.text_field :title, value: @post.title %>
         <p>契約形態</p>
-        <input name="select" value="<%= @post.select %>">
+        <%= post.text_field :select, value: @post.select %>
         <p>期間・期限</p>
-        <input name="period" value="<%= @post.period %>">
+        <%= post.text_field :period, value: @post.period %>
         <p>料金</p>
-        <input name="price" value="<%= @post.price %>">
+        <%= post.text_field :price, value: @post.price %>
         <p>詳細</p>
-        <textarea name="content"><%= @post.content %></textarea>  
+        <%= post.text_area :content, value: @post.content %>
         <br>
-        <input type="submit" value="保存">
+        <%= post.submit "保存" %>
     <% end %>
   </div>
 </div>

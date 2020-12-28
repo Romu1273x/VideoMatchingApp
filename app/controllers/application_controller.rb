@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
         # ログイン済ユーザーに制限をかける
         if @current_user
             flash[:notice] = "すでにログインしています"
-            redirect_to("/posts/index")
+            redirect_to(posts_path)
         end
     end
 

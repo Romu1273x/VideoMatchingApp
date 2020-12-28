@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2020_12_20_053928) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string "user_id"
+    t.integer "user_id", null: false
     t.string "title"
     t.string "select"
     t.string "price"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2020_12_20_053928) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -71,4 +72,5 @@ ActiveRecord::Schema.define(version: 2020_12_20_053928) do
   add_foreign_key "likes", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "posts", "users"
 end

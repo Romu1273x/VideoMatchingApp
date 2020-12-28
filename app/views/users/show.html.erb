@@ -24,7 +24,7 @@
     <p>投稿一覧</p>
     <% @user.posts.each do |post| %>
       <div>
-        <%= link_to(post.content, "/posts/#{post.id}") %>
+        <%= link_to(post.content, post_path(post.id)) %>
       </div>
     <% end %>
   </div>

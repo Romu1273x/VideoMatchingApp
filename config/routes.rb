@@ -16,13 +16,7 @@ Rails.application.routes.draw do
  get "users/:id/likes" => "users#likes"
 
  # Post
- get 'posts/new'
- post "posts/create" => "posts#create"
- get "posts/:id/edit" => "posts#edit"
- post "posts/:id/update" => "posts#update"
- post "posts/:id/destroy" => "posts#destroy"
- get 'posts/index'
- get "posts/:id" => "posts#show"
+ resources :posts
 
  # Room
  resources :rooms, only: [:index, :create, :show]

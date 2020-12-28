@@ -3,15 +3,15 @@
   <div>
     <% @posts.each do |post| %>
     <div class="posts-index-item">
-      <p><%= link_to(post.title, "/posts/#{post.id}") %></p>
+      <p>タイトル：<%= link_to(post.title, post_path(post.id)) %></p>
       <p>ユーザー名：<%= link_to(post.user.hdl_name, "/users/#{post.user.id}") %></p>
       <p>契約形態：<%= post.select %></p>
       <p>期間：<%= post.period %></p>
       <p>料金：<%= post.price %></p>
       <p>詳細</p>
-      <p><%= link_to(post.content, "/posts/#{post.id}") %></p>
+      <p><%= link_to(post.content, post_path(post.id)) %></p>
     </div>
     <% end %>
   </div>
-  <div><%= link_to("投稿する", "/posts/new") %></div>
+  <div><%= link_to("投稿する", new_post_path) %></div>
 </div>

@@ -4,19 +4,19 @@
     <% if @error_message %>
       <%= @error_message %>
     <% end %>
-    <%= form_tag("/posts/create") do %>
+    <%= form_with(model: @post, url: posts_path, local: true, method: :post) do |post| %>
         <p>タイトル</p>
-        <input name="title" value="<%= @post.title %>">
+        <%= post.text_field :title %>
         <p>契約形態</p>
-        <input name="select" value="<%= @post.select %>">
+        <%= post.text_field :select %>
         <p>期間・期限</p>
-        <input name="period" value="<%= @post.period %>">
+        <%= post.text_field :period %>
         <p>料金</p>
-        <input name="price" value="<%= @post.price %>">
+        <%= post.text_field :price %>
         <p>詳細</p>
-        <textarea name="content"><%= @post.content %></textarea>  
+        <%= post.text_area :content %>
         <br>
-        <input type="submit" value="投稿">
+        <%= post.submit "投稿" %>
     <% end %>
   </div>
 </div>

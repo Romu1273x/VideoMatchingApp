@@ -6,7 +6,7 @@
     <% @likes.each do |like| %>
         <div>
             <%= link_to(like.user.hdl_name, "/users/#{like.user_id}") %><br>
-            <%= link_to(like.post.content, "/posts/#{like.post_id}") %><br>
+            <%= link_to(like.post.content, post_path(like.post_id)) %><br>
         </div>
     <% end %>
   </div>
