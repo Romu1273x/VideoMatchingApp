@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+    # パスワード暗号化
+    has_secure_password
+
     has_many :posts
     has_many :messages
     has_many :entries
@@ -7,6 +10,5 @@ class User < ApplicationRecord
 
     validates :user_id, {presence: true, uniqueness: true}
     validates :hdl_name, {presence: true}
-    validates :password, {presence: true}
-
+        
 end

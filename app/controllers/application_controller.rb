@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
     
     def set_current_user
         # カレントユーザーを取得
-        @current_user = User.find_by(id: session[:id])
+        @current_user = User.find_by(id: session[:user_id])
     end
 
     def authenticate_user
