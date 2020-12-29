@@ -11,7 +11,7 @@ Rails.application.routes.draw do
  post "logout" => "users#logout"
  get "users/index" => "users#index"
  get "users/:id/edit" => "users#edit"
- post "users/:id/update" => "users#update"
+ patch "users/:id/update" => "users#update"
  get "users/:id" => "users#show"
  get "users/:id/likes" => "users#likes"
 

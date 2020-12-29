@@ -4,13 +4,13 @@
     <% if @error_message %>
       <%= @error_message %>
     <% end %>
-    <%= form_tag("/login") do %>
-        <p>ユーザID</p>
-        <input name="user_id" value="<%= @user_id %>">
+    <%= form_with(url: "/login", local: true) do |user| %>
+        <p>ユーザーID</p>
+        <%= user.text_field :user_id, value: @user_id %>
         <p>パスワード</p>
-        <input type="password" name="password" value="<%= @password %>">
+        <%= user.password_field :password, value: @password %>
         <br>
-        <input type="submit" value="ログイン">
+        <%= user.submit "ログイン" %>
     <% end %>
   </div>
 </div>

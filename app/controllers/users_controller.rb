@@ -13,12 +13,9 @@ class UsersController < ApplicationController
 
   def create
     # 新規ユーザー登録ページで入力されたデータを取得
-    @user = User.new(
-      user_id: params[:user_id],
-      hdl_name: params[:hdl_name],
-      password: params[:password],
-      content: ""
-    )
+    @user = User.new(params.require(:user)
+            .permit(:user_id, :hdl_name, :password)
+            .merge(content: ""))
     if @user.save
       # ユーザ登録できた場合、カレントユーザーIDを保持し、ユーザー詳細ページを表示する
       session[:user_id] = @user.id
@@ -64,10 +61,8 @@ class UsersController < ApplicationController
 
   def update
     # 編集されたユーザー情報を取得
-    @user = User.find_by(id:params[:id])
-    @user.hdl_name = params[:hdl_name]
-    @user.content = params[:content]
-    if @user.save
+    @user = User.find_by(id: params[:id])
+    if @user.update(params.require(:user).permit(:hdl_name, :content))
       # ユーザー情報更新できた場合、マイページを表示する
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to("/users/#{@user.id}")
@@ -79,7 +74,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id:params[:id])
+    @user = User.find_by(id: params[:id])
     # DM機能。カレントユーザーとユーザーのEntryテーブルを取得
     @current_user_entry = Entry.where(user_id: @current_user.id)
     @user_entry = Entry.where(user_id: @user.id)
