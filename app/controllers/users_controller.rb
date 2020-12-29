@@ -13,9 +13,7 @@ class UsersController < ApplicationController
 
   def create
     # 新規ユーザー登録ページで入力されたデータを取得
-    @user = User.new(params.require(:user)
-            .permit(:user_id, :hdl_name, :password)
-            .merge(content: ""))
+    @user = User.new(user_params.merge(content: ""))
     if @user.save
       # ユーザ登録できた場合、カレントユーザーIDを保持し、ユーザー詳細ページを表示する
       session[:user_id] = @user.id
@@ -62,7 +60,7 @@ class UsersController < ApplicationController
   def update
     # 編集されたユーザー情報を取得
     @user = User.find_by(id: params[:id])
-    if @user.update(params.require(:user).permit(:hdl_name, :content))
+    if @user.update(user_params)
       # ユーザー情報更新できた場合、マイページを表示する
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to("/users/#{@user.id}")
@@ -115,6 +113,11 @@ class UsersController < ApplicationController
       flash[:notice] = "権限がありません"
       redirect_to("/")
     end
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(:user_id, :hdl_name, :password, :content)
   end
 
 end

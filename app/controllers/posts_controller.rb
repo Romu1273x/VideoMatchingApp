@@ -11,9 +11,7 @@ class PostsController < ApplicationController
 
   def create
     # 新規投稿ページで入力された情報を取得
-    @post = Post.new(params.require(:post)
-            .permit(:title, :select, :period, :price, :content)
-            .merge(user_id: @current_user.id))
+    @post = Post.new(post_params.merge(user_id: @current_user.id))
     if @post.save
       # 投稿できた場合、投稿一覧ページを表示する
       flash[:notice] = "投稿しました"
@@ -32,7 +30,7 @@ class PostsController < ApplicationController
   def update
     # 投稿編集ページで入力された情報を取得
     @post = Post.find_by(id: params[:id])
-    if @post.update(params.require(:post).permit(:title, :select, :period, :price, :content))
+    if @post.update(post_params)
       # 更新できた場合、投稿一覧ページを表示する
       flash[:notice] = "投稿を編集しました"
       redirect_to(posts_path)
@@ -72,6 +70,11 @@ class PostsController < ApplicationController
       flash[:notice] = "権限がありません"
       redirect_to(posts_path)
     end
+  end
+
+  private
+  def post_params
+    params.require(:post).permit(:title, :select, :period, :price, :content)
   end
 
 end
