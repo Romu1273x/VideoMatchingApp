@@ -1,11 +1,14 @@
 <div>
-  <div>DM一覧ページ</div>
-  <div>
-    <% if @room_entres %>
+  <div class="text-center mt-5 mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">DM一覧ページ</h1>
+  </div>
+  <div class="card card-body" style="width:450px">
+    <div style="min-height:200px">
+      <% if @room_entres %>
         <% @room_entres.each do |re| %>
-            <%= link_to(re.user.hdl_name, room_path(re.room)) %>
-            <br>
+          <p class="h4 border-bottom"><%= link_to(re.user.hdl_name, room_path(re.room)) %></p>
         <% end %>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

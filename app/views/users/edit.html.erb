@@ -1,16 +1,21 @@
 <div>
-  <div>マイページ編集</div>
-  <div>
-     <% if @error_message %>
-      <%= @error_message %>
-    <% end %>
-    <%= form_with(model: @user, url: "/users/#{@user.id}/update", local: true) do |user| %>
-        <p>ハンドルネーム</p>
-        <%= user.text_field :hdl_name, value: @user.hdl_name %>
-        <p>自己紹介文</p>
-        <%= user.text_area :content, value: @user.content %>
-        <br>
-        <%= user.submit "保存" %>
+  <div class="text-center mt-5 mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">マイページ編集</h1>
+    <p>ユーザー情報を編集できます。</p>
+    <% if @error_message %>
+      <p><%= @error_message %></p>
     <% end %>
   </div>
+
+  <%= form_with(model: @user, url: "/users/#{@user.id}/update", local: true) do |user| %>
+    <div class="form-label-group">
+      <p class="text mb-1">ハンドルネーム</p>
+      <%= user.text_field :hdl_name, {value: @user.hdl_name, class: "form-control", placeholder: "ハンドルネーム"} %>
+    </div>
+    <div class="form-label-group">
+      <p class="text mb-1 pt-3">自己紹介文</p>
+      <%= user.text_area :content, {value: @user.content, class: "form-control", rows: "7"} %>
+    </div>
+    <%= user.submit "保存", {class: "btn btn-primary btn-block mt-4 w-25"} %>
+  <% end %>
 </div>

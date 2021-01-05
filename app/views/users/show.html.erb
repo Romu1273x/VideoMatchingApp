@@ -1,31 +1,42 @@
 <div>
-  <div>ユーザーページ</div>
-  <div>
-    <h2><%= @user.hdl_name %></h2>
-    <p>ユーザーID:<%= @user.user_id %></p>
+  <div class="text-center mt-5 mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">ユーザーページ</h1>
+  </div>
+  <div class="card card-body">
+    <h2 class="card-title border-bottom"><%= @user.hdl_name %>
+    <small class="lead"> ( <%= @user.user_id %> )</small></h2>
     <p>自己紹介文</p>
-    <p><%= @user.content %></p>
+    <div class="card-text border p-1" style="width:450px">
+      <div style="height:200px">
+        <%= @user.content %>
+      </div>
+    </div>
     <% if @user.id == @current_user.id %>
-      <%= link_to("DM一覧", rooms_path) %><br>
-      <%= link_to("お気に入り一覧", "/users/#{@user.id}/likes") %><br>
-      <%= link_to("編集", "/users/#{@user.id}/edit") %>
+      <p><%= link_to("編集", "/users/#{@user.id}/edit", {class: "btn btn-primary"}) %></p>
+      <div class="border-top pt-2">
+        <p><%= link_to("DM一覧", rooms_path, {class: "btn btn-outline-info"}) %></p>
+        <p><%= link_to("お気に入り一覧", "/users/#{@user.id}/likes", {class: "btn btn-outline-info"}) %></p>
+      </div>
     <% else %>
       <% if @room_flag == true %>
-        <%= link_to("DMを送る", room_path(@room_id)) %>
+        <%= link_to("DMを送る", room_path(@room_id), {class: "btn btn-primary"}) %>
       <% else %>
         <%= form_with(model: @room, local: true) do |r| %>
           <%= fields_for @entry do |e| %>
             <%= e.hidden_field :user_id, value: @user.id %>
           <% end %>
-          <%= r.submit "DMを送る" %>
+          <%= r.submit "DMを送る", {class: "btn btn-primary"} %>
         <% end %>
       <% end %>
     <% end %>
-    <p>投稿一覧</p>
+    <p class="card-text h6 border-bottom mb-2 mt-2">投稿一覧</p>
     <% @user.posts.each do |post| %>
-      <div>
-        <%= link_to(post.content, post_path(post.id)) %>
-      </div>
+      <p class="card-title h5 mb-2"><%= post.title %></p>
+      <div class="card-text border p-1" style="width:450px">
+        <div style="height:200px">
+          <%= link_to(post.content, post_path(post.id)) %>
+        </div>
+      </div><br>
     <% end %>
   </div>
 </div>

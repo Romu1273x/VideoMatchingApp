@@ -1,16 +1,26 @@
-<div>
-  <div>ログイン</div>
-  <div>
+<div class="form-signin">
+  <div class="text-center mt-5 mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">ログイン</h1>
+    <p>ユーザーIDとパスワードを入力してい下さい。</p>
     <% if @error_message %>
-      <%= @error_message %>
-    <% end %>
-    <%= form_with(url: "/login", local: true) do |user| %>
-        <p>ユーザーID</p>
-        <%= user.text_field :user_id, value: @user_id %>
-        <p>パスワード</p>
-        <%= user.password_field :password, value: @password %>
-        <br>
-        <%= user.submit "ログイン" %>
+      <p><%= @error_message %></p>
     <% end %>
   </div>
+
+  <%= form_with(url: "/login", local: true) do |user| %>
+    <div class="form-label-group">
+      <p class="text mb-1">ユーザーID</p>
+      <%= user.text_field :user_id, {value: @user_id, class: "form-control", placeholder: "ユーザーID"} %>
+    </div>
+    <div class="form-label-group">
+      <p class="text mb-1 pt-3">パスワード</p>
+      <%= user.password_field :password, {value: @password, class: "form-control", placeholder: "パスワード"} %>
+    </div>
+    <div class="checkbox my-2">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <%= user.submit "ログイン", {class: "btn btn-lg btn-primary btn-block"} %>
+  <% end %>
 </div>

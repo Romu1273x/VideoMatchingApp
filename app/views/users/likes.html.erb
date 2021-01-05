@@ -1,13 +1,20 @@
 <div>
-  <div>お気に入り一覧ページ</div>
+  <div class="text-center mt-5 mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">お気に入り一覧ページ</h1>
+  </div>
   <div>
-    <h2><%= @user.hdl_name %></h2>
-    お気に入り一覧<br>
+    <h2 class="text-center"><%= @user.hdl_name %></h2>
+    <p class="text-center h6 mb-1">お気に入り一覧</p>
     <% @likes.each do |like| %>
-        <div>
-            <%= link_to(like.user.hdl_name, "/users/#{like.user_id}") %><br>
-            <%= link_to(like.post.content, post_path(like.post_id)) %><br>
-        </div>
+        <div class="card card-body">
+            <p class="card-title h4"><%= link_to(like.user.hdl_name, "/users/#{like.user_id}") %></p>
+            <p class="card-title h5 mb-1"><%= link_to(like.post.title, post_path(like.post_id)) %></p>
+          <div class="card-text border p-1" style="width:450px">
+            <div style="height:250px">
+              <%= link_to(like.post.content, post_path(like.post_id)) %>
+            </div>
+          </div>
+        </div><br>
     <% end %>
   </div>
 </div>

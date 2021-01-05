@@ -1,22 +1,32 @@
 <div>
-  <div>編集する</div>
-  <div>
+  <div class="text-center mt-5 mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">投稿ページ編集</h1>
     <% if @error_message %>
-      <%= @error_message %>
-    <% end %>
-    <%= form_with(model: @post, url: post_path(@post.id), local: true, method: :patch) do |post| %>
-        <p>タイトル</p>
-        <%= post.text_field :title, value: @post.title %>
-        <p>契約形態</p>
-        <%= post.text_field :select, value: @post.select %>
-        <p>期間・期限</p>
-        <%= post.text_field :period, value: @post.period %>
-        <p>料金</p>
-        <%= post.text_field :price, value: @post.price %>
-        <p>詳細</p>
-        <%= post.text_area :content, value: @post.content %>
-        <br>
-        <%= post.submit "保存" %>
+      <p><%= @error_message %></p>
     <% end %>
   </div>
+
+  <%= form_with(model: @post, url: post_path(@post.id), local: true, method: :patch) do |post| %>
+    <div class="form-label-group">
+      <p class="text mb-1">タイトル</p>
+      <%= post.text_field :title, {value: @post.title, class: "form-control"} %>
+    </div>
+    <div class="form-label-group">
+      <p class="text mb-1 pt-3">契約形態</p>
+      <%= post.text_field :select, {value: @post.select, class: "form-control"} %>
+    </div>
+    <div class="form-label-group">
+      <p class="text mb-1 pt-3">納期</p>
+      <%= post.text_field :period, {value: @post.period, class: "form-control"} %>
+    </div>
+    <div class="form-label-group">   
+      <p class="text mb-1 pt-3">料金</p>
+      <%= post.text_field :price, {value: @post.price, class: "form-control"} %>
+    </div>
+    <div class="form-label-group">
+      <p class="text mb-1 pt-3">詳細</p>
+      <%= post.text_area :content, {value: @post.content, class: "form-control", rows: "7"} %>
+    </div>
+    <%= post.submit "保存", {class: "btn btn-primary btn-block mt-4 w-25"} %>
+    <% end %>
 </div>

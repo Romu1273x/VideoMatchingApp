@@ -1,18 +1,25 @@
-<div>
-  <div>新規ユーザー登録</div>
-  <div>
+<div class="form-signup">
+  <div class="text-center mt-5 mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">新規ユーザー登録</h1>
+    <p>登録情報を入力してい下さい。</p>
     <% if @error_message %>
-      <%= @error_message %>
-    <% end %>
-    <%= form_with(model: @user, url: "/users/create", local: true) do |user| %>
-        <p>ユーザーID</p>
-        <%= user.text_field :user_id, value: @user.user_id %>
-        <p>ハンドルネーム</p>
-        <%= user.text_field :hdl_name, value: @user.hdl_name %>  
-        <p>パスワード</p>
-        <%= user.password_field :password, value: @user.password %>
-        <br>
-        <%= user.submit "新規登録" %>
+      <p><%= @error_message %></p>
     <% end %>
   </div>
+
+  <%= form_with(model: @user, url: "/users/create", local: true) do |user| %>
+    <div class="form-label-group">
+      <p class="text mb-1">ユーザーID</p>
+      <%= user.text_field :user_id, {value: @user.user_id, class: "form-control", placeholder: "ユーザーID"} %>
+    </div>
+    <div class="form-label-group">
+      <p class="text mb-1 pt-3">ハンドルネーム</p>
+      <%= user.text_field :hdl_name, {value: @user.hdl_name, class: "form-control", placeholder: "ハンドルネーム"} %>
+    </div>
+    <div class="form-label-group">
+      <p class="text mb-1 pt-3">パスワード</p>
+      <%= user.password_field :password, {value: @user.password, class: "form-control", placeholder: "パスワード"} %>
+    </div>
+    <%= user.submit "新規登録", {class: "btn btn-lg btn-primary btn-block mt-4"} %>
+  <% end %>
 </div>

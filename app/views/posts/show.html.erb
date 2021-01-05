@@ -1,25 +1,36 @@
 <div>
-  <div>詳細ページ</div>
-  <div>
-    <p>ユーザーID：<%= @post.user_id %></p>
-    <p>タイトル：<%= @post.title %></p>
+  <div class="text-center mt-5 mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">詳細ページ</h1>
+  </div>
+  <div class="card card-body">
+    <p class="card-title h4 border-bottom"><%= @post.title %></p>
+    <div class="card-text">
     <p>契約形態：<%= @post.select %></p>
     <p>期間：<%= @post.period %></p>
     <p>料金：<%= @post.price %></p>
-    <p>詳細</p>
-    <p><%= @post.content %></p>
+    </div>
+    <p class="mb-1">詳細</p>
+    <div class="card-text border p-1" style="width:450px">
+      <div style="height:250px">
+        <%= @post.content %>
+      </div>
+    </div>
   </div>
-  <div>
-    <% if @post.user_id == @current_user.id %>
-      <%= link_to("編集", edit_post_path(@post.id)) %>
-      <%= link_to("削除", post_path(@post.id), {method: :delete}) %>
-    <% end %>          
-  </div>
-  <div>
-    <% if @like %>
-      <%= link_to("お気に入り解除", like_path(@like, post_id: @post.id), {method: :delete}) %>
-    <% else %>
-      <%= link_to("お気に入り追加", likes_path(post_id: @post.id), {method: :post}) %>
-    <% end %>
+  <div class="row">
+    <div class="col-6 text-left pt-1">
+      <% if @post.user_id == @current_user.id %>
+        <%= link_to("編集", edit_post_path(@post.id), {class: "btn btn-primary"}) %>
+      <% end %>          
+      <% if @like %>
+        <%= link_to("お気に入り解除", like_path(@like, post_id: @post.id), {method: :delete, class: "btn btn-primary"}) %>
+      <% else %>
+        <%= link_to("お気に入り追加", likes_path(post_id: @post.id), {method: :post, class: "btn btn-primary"}) %>
+      <% end %>
+    </div>
+    <div class="col text-right pt-1">
+      <% if @post.user_id == @current_user.id %>
+        <%= link_to("削除", post_path(@post.id), {method: :delete, class: "btn btn-primary"}) %>
+      <% end %> 
+    </div>
   </div>
 </div>
