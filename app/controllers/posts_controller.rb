@@ -53,7 +53,7 @@ class PostsController < ApplicationController
 
   def index
     # 投稿一覧を取得
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def show

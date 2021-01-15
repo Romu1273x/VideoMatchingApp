@@ -2,7 +2,7 @@
   <div class="text-center mt-3 mb-2">
     <h1 class="h3 mb-3 font-weight-normal"><%= @opponent_user_name %></h1>
   </div>
-  <div class="card card-body" style="width:450px">
+  <div class="card card-body overflow-auto" style="width:500px; height:60%;">
     <% if @messages %>
         <% @messages.each do |m| %>
             <%= m.user.hdl_name %><br>

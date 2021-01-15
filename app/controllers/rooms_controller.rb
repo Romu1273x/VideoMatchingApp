@@ -3,7 +3,7 @@ class RoomsController < ApplicationController
   def index
     # DM相手のユーザー一覧を表示
     @rooms = @current_user.rooms
-    @room_entres = Entry.where(room_id: @rooms).where.not(user_id: @current_user)
+    @room_entres = Entry.where(room_id: @rooms).where.not(user_id: @current_user).order(created_at: :desc)
   end
 
   def create
@@ -20,7 +20,7 @@ class RoomsController < ApplicationController
     @room = Room.find_by(id: params[:id])
     if Entry.where(user_id: @current_user.id, room_id: @room.id)
       # メッセージ履歴を取得
-      @messages = @room.messages.includes(:user).order("created_at asc")
+      @messages = @room.messages.includes(:user).order(created_at: :desc)
       # メッセージを新規作成
       @message = Message.new
       # DM相手のユーザー名を取得

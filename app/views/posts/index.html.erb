@@ -2,7 +2,7 @@
   <div class="text-center mt-5 mb-4">
     <h1 class="h3 mb-3 font-weight-normal">投稿一覧ページ</h1>
   </div>
-  <div class="card card-body">
+  <div class="card card-body overflow-auto" style="width:500px; height:40%;">
     <% @posts.each do |post| %>
         <p class="card-title h3 border-bottom"><%= link_to(post.title, post_path(post.id)) %></p>
       <div class="card-text">
@@ -12,7 +12,7 @@
         <p class="mb-1">料金：<%= post.price %></p>
       </div>
       <p class="mb-1">詳細</p>
-      <div class="card-text border p-1" style="width:450px">
+      <div class="card-text border p-1" style="width:450px;">
         <div style="height:200px">
           <%= link_to(post.content, post_path(post.id)) %>
         </div>

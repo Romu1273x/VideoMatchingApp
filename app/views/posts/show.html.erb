@@ -4,10 +4,11 @@
   </div>
   <div class="card card-body">
     <p class="card-title h4 border-bottom"><%= @post.title %></p>
+    <p class="card-title h5 mb-1">投稿者：<%= link_to(@post.user.hdl_name, "/users/#{@post.user.id}") %></p>
     <div class="card-text">
-    <p>契約形態：<%= @post.select %></p>
-    <p>期間：<%= @post.period %></p>
-    <p>料金：<%= @post.price %></p>
+    <p class="mb-1">契約形態：<%= @post.select %></p>
+    <p class="mb-1">期間：<%= @post.period %></p>
+    <p class="mb-1">料金：<%= @post.price %></p>
     </div>
     <p class="mb-1">詳細</p>
     <div class="card-text border p-1" style="width:450px">

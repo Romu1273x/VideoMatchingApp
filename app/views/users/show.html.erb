@@ -2,7 +2,7 @@
   <div class="text-center mt-5 mb-4">
     <h1 class="h3 mb-3 font-weight-normal">ユーザーページ</h1>
   </div>
-  <div class="card card-body">
+  <div class="card card-body overflow-auto" style="width:500px; height:50%;">
     <h2 class="card-title border-bottom"><%= @user.hdl_name %>
     <small class="lead"> ( <%= @user.user_id %> )</small></h2>
     <p>自己紹介文</p>
@@ -19,13 +19,13 @@
       </div>
     <% else %>
       <% if @room_flag == true %>
-        <%= link_to("DMを送る", room_path(@room_id), {class: "btn btn-primary"}) %>
+        <%= link_to("DMを送る", room_path(@room_id), {class: "btn btn-primary col-3"}) %>
       <% else %>
         <%= form_with(model: @room, local: true) do |r| %>
           <%= fields_for @entry do |e| %>
             <%= e.hidden_field :user_id, value: @user.id %>
           <% end %>
-          <%= r.submit "DMを送る", {class: "btn btn-primary"} %>
+          <%= r.submit "DMを送る", {class: "btn btn-primary col-3"} %>
         <% end %>
       <% end %>
     <% end %>
